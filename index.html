@@ -1,11 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Churn Form</title>
+  <meta charset="UTF-8" />
+  <title>Churn Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-  <h1>Welcome to Churn Form</h1>
+<body class="min-h-screen bg-gray-100 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+  <div class="max-w-2xl w-full bg-white rounded-2xl shadow-xl p-6 sm:p-8 lg:p-10">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-6 text-center">Churn Report</h1>
+
+    <div id="successMsg" class="hidden bg-green-100 text-green-800 p-4 rounded-lg shadow-md mb-6 text-center font-semibold">
+      Report submitted successfully! (Data logged to console)
+    </div>
+    <div id="errorMsg" class="hidden bg-red-100 text-red-800 p-4 rounded-lg shadow-md mb-6 text-center font-semibold">
+    </div>
+
+    <form id="churnForm" class="space-y-6">
+      <div>
+        <label for="store" class="block text-sm font-medium text-gray-700">Store <span class="text-red-500">*</span></label>
+        <input id="store" name="store" type="text" required class="block w-full rounded-md border-gray-300 shadow-sm p-3" placeholder="e.g., City Center Branch" />
+      </div>
+
+      <div>
+        <label for="reason" class="block text-sm font-medium text-gray-700">Reason <span class="text-red-500">*</span></label>
+        <textarea id="reason" name="reason" rows="3" required class="block w-full rounded-md border-gray-300 shadow-sm p-3" placeholder="Describe the reason..."></textarea>
+      </div>
+
+      <div>
+        <label for="leavingTo" class="block text-sm font-medium text-gray-700">Leaving to Company <span class="text-red-500">*</span></label>
+        <input id="leavingTo" name="leavingTo" type="text" required class="block w-full rounded-md border-gray-300 shadow-sm p-3" placeholder="e.g., Competitor XYZ" />
+      </div>
+
+      <div>
+        <label for="gender" class="block text-sm font-medium text-gray-700">Customer Gender <span class="text-red-500">*</span></label>
+        <select id="gender" name="gender" required class="block w-full rounded-md border-gray-300 shadow-sm p-3">
+          <option value="" disabled selected>Select a gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Non-binary">Non-binary</option>
+          <option value="Prefer not to say">Prefer not to say</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="age" class="block text-sm font-medium text-gray-700">Age Estimate <span class="text-red-500">*</span></label>
+        <input id="age" name="age" type="number" min="0" required class="block w-full rounded-md border-gray-300 shadow-sm p-3" placeholder="e.g., 35" />
+      </div>
+
+      <div>
+        <label for="nationality" class="block text-sm font-medium text-gray-700">Nationality</label>
+        <input id="nationality" name="nationality" type="text" class="block w-full rounded-md border-gray-300 shadow-sm p-3" placeholder="e.g., Chinese" />
+      </div>
+
+      <div>
+        <label for="otherNotes" class="block text-sm font-medium text-gray-700">Other Notes</label>
+        <textarea id="otherNotes" name="otherNotes" rows="4" class="block w-full rounded-md border-gray-300 shadow-sm p-3" placeholder="Any additional information..."></textarea>
+      </div>
+
+      <div class="pt-5">
+        <button type="submit" class="w-full py-3 px-4 rounded-md text-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+          Submit Report
+        </button>
+      </div>
+    </form>
+  </div>
+
   <script src="app.js"></script>
 </body>
 </html>
