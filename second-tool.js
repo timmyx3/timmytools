@@ -23,13 +23,14 @@ debtForm.addEventListener('submit', function (e) {
 
   const data = { from, to, item, amount };
 
-  fetch(API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
+fetch('https://script.google.com/macros/s/AKfycbwFpuJA31UTFyVGYr4_WKF1cUqtjKecu68U5xORJPModeDSZwy5yRdH_-74m2IGnGAV/exec', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(data),
+})
+
   .then(response => response.json())
   .then(result => {
     if (result.result === 'success') {
