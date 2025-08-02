@@ -16,28 +16,24 @@
     <div id="errorMsg" class="hidden bg-red-100 text-red-800 p-4 rounded-lg mb-4 text-center font-semibold"></div>
 
     <form id="debtForm" class="space-y-5">
+
       <div>
-        <label for="from" class="block text-sm font-medium text-gray-700">From (Who owes) <span class="text-red-500">*</span></label>
-        <input id="from" name="from" type="text" required class="block w-full rounded-md border-gray-300 shadow-sm p-3" placeholder="e.g., Alice" />
+        <label for="to" class="block text-sm font-medium text-gray-700"> Who I owe <span class="text-red-500">*</span></label>
+        <input id="to" name="to" type="text" required class="block w-full rounded-md border-gray-300 shadow-sm p-3" placeholder="e.g., Mischa" />
       </div>
 
       <div>
-        <label for="to" class="block text-sm font-medium text-gray-700">To (Who is owed) <span class="text-red-500">*</span></label>
-        <input id="to" name="to" type="text" required class="block w-full rounded-md border-gray-300 shadow-sm p-3" placeholder="e.g., Bob" />
-      </div>
-
-      <div>
-        <label for="item" class="block text-sm font-medium text-gray-700">Item/Reason <span class="text-red-500">*</span></label>
+        <label for="item" class="block text-sm font-medium text-gray-700">Why I owe <span class="text-red-500">*</span></label>
         <input id="item" name="item" type="text" required class="block w-full rounded-md border-gray-300 shadow-sm p-3" placeholder="e.g., Dinner" />
       </div>
 
       <div>
-        <label for="amount" class="block text-sm font-medium text-gray-700">Amount (optional)</label>
+        <label for="amount" class="block text-sm font-medium text-gray-700">What I owe</label>
         <input id="amount" name="amount" type="text" class="block w-full rounded-md border-gray-300 shadow-sm p-3" placeholder="e.g., 20 or leave blank" />
       </div>
 
       <button type="submit" class="w-full py-3 px-4 rounded-md text-lg font-medium text-white bg-green-600 hover:bg-green-700">
-        Add Debt Record
+        Add Record
       </button>
     </form>
   </div>
