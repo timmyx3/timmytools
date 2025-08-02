@@ -21,7 +21,7 @@ debtForm.addEventListener('submit', function (e) {
 
   const data = { from, to, item, amount };
 
-  fetch('https://script.google.com/macros/s/AKfycbwl8Bvex4EH0McUFvbFSFB4CstvFCNCLW2byKFm_QOXySaibJZC7LeGXW1kTkOJOyqo/exec', {
+fetch('https://script.google.com/macros/s/AKfycbwl8Bvex4EH0McUFvbFSFB4CstvFCNCLW2byKFm_QOXySaibJZC7LeGXW1kTkOJOyqo/exec', {
     method: 'POST',
     body: JSON.stringify(data),
   })
