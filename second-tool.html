@@ -2,19 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Debt Tracker Tool</title>
+  <title>IOU Tracker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 </head>
 <body class="min-h-screen bg-gray-100 flex items-center justify-center p-6">
   <div class="bg-white rounded-xl shadow-lg p-8 max-w-md w-full space-y-6">
-    <h1 class="text-3xl font-bold text-gray-900 text-center mb-6">Debt Tracker Tool</h1>
+    <h1 class="text-3xl font-bold text-gray-900 text-center mb-6">IOU Tracker</h1>
 
     <div id="successMsg" class="hidden bg-green-100 text-green-800 p-4 rounded-lg mb-4 text-center font-semibold">
       Debt record saved successfully!
     </div>
-    <div id="errorMsg" class="hidden bg-red-100 text-red-800 p-4 rounded-lg mb-4 text-center font-semibold">
-    </div>
+    <div id="errorMsg" class="hidden bg-red-100 text-red-800 p-4 rounded-lg mb-4 text-center font-semibold"></div>
 
     <form id="debtForm" class="space-y-5">
       <div>
@@ -43,54 +42,6 @@
     </form>
   </div>
 
-  <script>
-    const debtForm = document.getElementById('debtForm');
-    const successMsg = document.getElementById('successMsg');
-    const errorMsg = document.getElementById('errorMsg');
-
-    debtForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const from = document.getElementById('from').value.trim();
-      const to = document.getElementById('to').value.trim();
-      const item = document.getElementById('item').value.trim();
-      const amount = document.getElementById('amount').value.trim();
-
-      if (!from || !to || !item) {
-        errorMsg.innerText = 'Please fill in all required fields.';
-        errorMsg.classList.remove('hidden');
-        successMsg.classList.add('hidden');
-        return;
-      }
-
-      errorMsg.classList.add('hidden');
-
-      const data = { from, to, item, amount };
-
-      fetch('https://script.google.com/macros/s/AKfycbwl8Bvex4EH0McUFvbFSFB4CstvFCNCLW2byKFm_QOXySaibJZC7LeGXW1kTkOJOyqo/exec', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      })
-      .then(response => response.json())
-      .then(result => {
-        if (result.result === 'success') {
-          successMsg.classList.remove('hidden');
-          errorMsg.classList.add('hidden');
-          debtForm.reset();
-
-          setTimeout(() => {
-            successMsg.classList.add('hidden');
-          }, 4000);
-        } else {
-          throw new Error(result.error || 'Unknown error');
-        }
-      })
-      .catch(error => {
-        errorMsg.innerText = 'Failed to save debt record: ' + error.message;
-        errorMsg.classList.remove('hidden');
-        successMsg.classList.add('hidden');
-      });
-    });
-  </script>
+  <script src="second-tool.js" defer></script>
 </body>
 </html>
