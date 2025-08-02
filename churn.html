@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Churn Report</title>
+  <title>One NZ Telco Exit Form</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 </head>
 <body class="min-h-screen bg-gray-100 flex items-center justify-center p-4 sm:p-6 lg:p-8">
   <div class="max-w-2xl w-full bg-white rounded-2xl shadow-xl p-6 sm:p-8 lg:p-10">
-    <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-6 text-center">Churn Report</h1>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-6 text-center">One NZ Telco Exit Form</h1>
 
     <div id="successMsg" class="hidden bg-green-100 text-green-800 p-4 rounded-lg shadow-md mb-6 text-center font-semibold">
-      Report submitted successfully! (Data logged to console)
+      Report submitted successfully!
     </div>
     <div id="errorMsg" class="hidden bg-red-100 text-red-800 p-4 rounded-lg shadow-md mb-6 text-center font-semibold"></div>
 
@@ -44,7 +44,7 @@
 
       <div>
         <label for="age" class="block text-sm font-medium text-gray-700">Age Estimate <span class="text-red-500">*</span></label>
-        <input id="age" name="age" type="number" min="0" required class="block w-full rounded-md border-gray-300 shadow-sm p-3" placeholder="e.g., 35" />
+        <input id="age" name="age" type="text" required class="block w-full rounded-md border-gray-300 shadow-sm p-3" placeholder="e.g., Early 30s" />
       </div>
 
       <div>
@@ -65,6 +65,6 @@
     </form>
   </div>
 
-  <script src="app.js" defer></script>
+  <script src="churn.js" defer></script>
 </body>
 </html>
