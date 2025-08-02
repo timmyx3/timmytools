@@ -5,20 +5,75 @@
   <title>Toolbox Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
 <body class="min-h-screen bg-gray-100 flex items-center justify-center p-6">
-  <div class="bg-white rounded-xl shadow-lg p-10 max-w-md w-full space-y-6 text-center">
-    <h1 class="text-3xl font-bold text-gray-900">Welcome to the Toolbox</h1>
-    <p class="text-gray-600">Select a tool to get started:</p>
+  <div class="bg-white rounded-xl shadow-lg p-10 max-w-md w-full space-y-8">
+    <!-- Header Section -->
+    <div class="text-center space-y-2">
+      <div class="flex justify-center">
+        <i class="fas fa-tools text-4xl text-indigo-600 mb-2"></i>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-900">Welcome to the Toolbox</h1>
+      <p class="text-gray-600">Select a tool to get started</p>
+    </div>
     
+    <!-- Tools Navigation -->
     <div class="space-y-4">
-      <a href="churn.html" class="block w-full py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition">
-        📝 One NZ Telco Exit Form
+      <a href="churn.html" class="group block w-full p-4 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-all duration-200 border border-indigo-100">
+        <div class="flex items-center space-x-4">
+          <div class="bg-indigo-100 group-hover:bg-indigo-200 p-3 rounded-lg transition">
+            <i class="fas fa-mobile-alt text-indigo-600 text-xl"></i>
+          </div>
+          <div class="text-left">
+            <h3 class="font-semibold text-gray-800">One NZ Telco Exit Form</h3>
+            <p class="text-sm text-gray-500">Process telecom cancellations</p>
+          </div>
+          <div class="ml-auto">
+            <i class="fas fa-chevron-right text-gray-400 group-hover:text-indigo-600"></i>
+          </div>
+        </div>
       </a>
-      <a href="second-tool.html" class="block w-full py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition">
-        💸 IOU Tracker
+      
+      <a href="debt-form.html" class="group block w-full p-4 bg-green-50 hover:bg-green-100 rounded-lg transition-all duration-200 border border-green-100">
+        <div class="flex items-center space-x-4">
+          <div class="bg-green-100 group-hover:bg-green-200 p-3 rounded-lg transition">
+            <i class="fas fa-hand-holding-usd text-green-600 text-xl"></i>
+          </div>
+          <div class="text-left">
+            <h3 class="font-semibold text-gray-800">IOU Tracker</h3>
+            <p class="text-sm text-gray-500">Track personal debts and favors</p>
+          </div>
+          <div class="ml-auto">
+            <i class="fas fa-chevron-right text-gray-400 group-hover:text-green-600"></i>
+          </div>
+        </div>
       </a>
     </div>
+
+    <!-- Footer -->
+    <div class="pt-4 text-center text-sm text-gray-500">
+      <p>Toolbox v1.0 • <span id="currentYear"></span></p>
+    </div>
   </div>
+
+  <script>
+    // Add current year to footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    
+    // Add animation on load
+    document.addEventListener('DOMContentLoaded', () => {
+      const tools = document.querySelectorAll('a[href^="churn.html"], a[href^="debt-form.html"]');
+      tools.forEach((tool, index) => {
+        tool.style.opacity = '0';
+        tool.style.transform = 'translateY(10px)';
+        tool.style.transition = `all 0.3s ease ${index * 0.1}s`;
+        setTimeout(() => {
+          tool.style.opacity = '1';
+          tool.style.transform = 'translateY(0)';
+        }, 100);
+      });
+    });
+  </script>
 </body>
 </html>
