@@ -2,6 +2,8 @@ const debtForm = document.getElementById('debtForm');
 const successMsg = document.getElementById('successMsg');
 const errorMsg = document.getElementById('errorMsg');
 
+const API_URL = 'https://script.google.com/macros/s/AKfycbwFpuJA31UTFyVGYr4_WKF1cUqtjKecu68U5xORJPModeDSZwy5yRdH_-74m2IGnGAV/exec';
+
 debtForm.addEventListener('submit', function (e) {
   e.preventDefault();
 
@@ -21,8 +23,11 @@ debtForm.addEventListener('submit', function (e) {
 
   const data = { from, to, item, amount };
 
-fetch('https://script.google.com/macros/s/AKfycbwl8Bvex4EH0McUFvbFSFB4CstvFCNCLW2byKFm_QOXySaibJZC7LeGXW1kTkOJOyqo/exec', {
+  fetch(API_URL, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(data),
   })
   .then(response => response.json())
