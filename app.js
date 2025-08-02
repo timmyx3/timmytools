@@ -31,13 +31,25 @@ document.getElementById("churnForm").addEventListener("submit", function (e) {
     otherNotes,
   };
 
-  console.log("Submitting Churn Report:", formData);
-
-  successMsg.classList.remove("hidden");
-
-  this.reset();
-
-  setTimeout(() => {
-    successMsg.classList.add("hidden");
-  }, 5000);
+  fetch("https://script.google.com/macros/s/AKfycbwl8Bvex4EH0McUFvbFSFB4CstvFCNCLW2byKFm_QOXySaibJZC7LeGXW1kTkOJOyqo/exec", {
+    method: "POST",
+    body: JSON.stringify(formData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.result === "success") {
+        successMsg.classList.remove("hidden");
+        this.reset();
+        setTimeout(() => {
+          successMsg.classList.add("hidden");
+        }, 5000);
+      } else {
+        throw new Error(data.error || "Unknown error");
+      }
+    })
+    .catch((error) => {
+      errorMsg.innerText = "Failed to submit: " + error.message;
+      errorMsg.classList.remove("hidden");
+      successMsg.classList.add("hidden");
+    });
 });
