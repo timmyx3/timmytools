@@ -26,7 +26,7 @@ document.getElementById("churnForm").addEventListener("submit", function (e) {
     reason,
     leavingTo,
     gender,
-    age: parseInt(age, 10),
+    age,
     nationality,
     otherNotes,
   };
