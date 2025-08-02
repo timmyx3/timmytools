@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>IOU Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body class="min-h-screen bg-gray-100 flex items-center justify-center p-6">
+  <div class="bg-white rounded-xl shadow-lg p-8 max-w-md w-full space-y-6">
+    <h1 class="text-3xl font-bold text-gray-900 text-center mb-6">IOU Tracker</h1>
+
+    <div id="successMsg" class="hidden bg-green-100 text-green-800 p-4 rounded-lg mb-4 text-center font-semibold">
+      Debt record saved successfully!
+    </div>
+    <div id="errorMsg" class="hidden bg-red-100 text-red-800 p-4 rounded-lg mb-4 text-center font-semibold"></div>
+
+    <form id="debtForm" class="space-y-5">
+      <div>
+        <label for="to" class="block text-sm font-medium text-gray-700">
+          Who I Owe <span class="text-red-500">*</span>
+        </label>
+        <input
+          id="to"
+          name="to"
+          type="text"
+          required
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 p-3 border"
+          placeholder="e.g., Mischa"
+        />
+      </div>
+
+      <div>
+        <label for="item" class="block text-sm font-medium text-gray-700">
+          Why I Owe <span class="text-red-500">*</span>
+        </label>
+        <input
+          id="item"
+          name="item"
+          type="text"
+          required
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 p-3 border"
+          placeholder="e.g., Helped me with Pokemon Cards"
+        />
+      </div>
+
+      <div>
+        <label for="amount" class="block text-sm font-medium text-gray-700">
+          What I Owe
+        </label>
+        <input
+          id="amount"
+          name="amount"
+          type="text"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 p-3 border"
+          placeholder="e.g., $20 or Dinner"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="w-full py-3 px-4 rounded-md text-lg font-medium text-white bg-green-600 hover:bg-green-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+      >
+        Add Record
+      </button>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const debtForm = document.getElementById('debtForm');
+      const successMsg = document.getElementById('successMsg');
+      const errorMsg = document.getElementById('errorMsg');
+      let successTimeout = null;
+
+      debtForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Clear previous messages and timeouts
+        errorMsg.classList.add('hidden');
+        successMsg.classList.add('hidden');
+        if (successTimeout) clearTimeout(successTimeout);
+
+        // Get form values
+        const to = document.getElementById('to').value.trim();
+        const item = document.getElementById('item').value.trim();
+        const amount = document.getElementById('amount').value.trim() || 'Not specified';
+
+        // Validate required fields
+        if (!to || !item) {
+          showError('Please fill in all required fields marked with *');
+          return;
+        }
+
+        try {
+          // Show loading state
+          const submitBtn = debtForm.querySelector('button[type="submit"]');
+          const originalBtnText = submitBtn.textContent;
+          submitBtn.textContent = 'Saving...';
+          submitBtn.disabled = true;
+
+          // Send data to Google Apps Script
+          const response = await fetch(
+            'https://script.google.com/macros/s/AKfycbwFpuJA31UTFyVGYr4_WKF1cUqtjKecu68U5xORJPModeDSZwy5yRdH_-74m2IGnGAV/exec',
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ to, item, amount }),
+            }
+          );
+
+          // Handle response
+          if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+          }
+
+          const result = await response.json();
+          
+          if (result.result === 'success') {
+            showSuccess('IOU record saved successfully!');
+            debtForm.reset();
+          } else {
+            throw new Error(result.error || 'Unknown server response');
+          }
+        } catch (error) {
+          console.error('Submission error:', error);
+          showError(`Failed to save: ${error.message || 'Network error'}`);
+        } finally {
+          // Reset button state
+          const submitBtn = debtForm.querySelector('button[type="submit"]');
+          submitBtn.textContent = 'Add Record';
+          submitBtn.disabled = false;
+        }
+      });
+
+      function showSuccess(message) {
+        successMsg.textContent = message;
+        successMsg.classList.remove('hidden');
+        successTimeout = setTimeout(() => {
+          successMsg.classList.add('hidden');
+        }, 4000);
+      }
+
+      function showError(message) {
+        errorMsg.textContent = message;
+        errorMsg.classList.remove('hidden');
+        // Auto-hide error after longer period
+        setTimeout(() => {
+          errorMsg.classList.add('hidden');
+        }, 6000);
+      }
+    });
+  </script>
+</body>
+</html>
